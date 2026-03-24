@@ -29,13 +29,13 @@ async function deal100x30({ productname = "标准时钟", producttype = "HYCX-YU
             out.draw(images("./type.png"), typeLeft + offsetLeft * i, typeTop + j * offsetTop)
             out.draw(images("./date.png"), dateLeft + offsetLeft * i, dateTop + j * offsetTop)
         }
-        
+
     }
 
-    out.save(output, {
+    await out.save(output, {
         quality: 100
     })
     res && res.redirect("/output.jpg");
 }
 
-module.exports = deal100x30
+module.exports = deal100x30;

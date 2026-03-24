@@ -1,0 +1,17 @@
+[createImg] Input: {
+  name: '测试',
+  outputname: 'debug_36',
+  fontSize: 36,
+  fontPath: 'font/msyh.ttf'
+}
+[createImg] Metrics: {
+  x: 0,
+  y: -38.091796875,
+  baseline: 0,
+  width: 72,
+  height: 47.513671875,
+  ascender: 38.091796875,
+  descender: -9.421875
+}
+[createImg] Created: g:\work\imgtool\debug_36.png (fontSize: 36)
+done

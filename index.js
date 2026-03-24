@@ -10,7 +10,7 @@ app.use(express.static('./'))
 app.get('/water',async (req,res)=>{
     let {size,productname,producttype,productdate,productpeople} = req.query;
     console.log(size);
-    dealWater[size]({ productname, producttype, productdate, productpeople }, res)
+    await dealWater[size]({ productname, producttype, productdate, productpeople }, res)
 })
 
 

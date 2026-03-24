@@ -32,7 +32,7 @@ async function deal100x30({ productname = "彼岸准时钟", producttype = "HYCX
         
     }
 
-    out.save(output, {
+    await out.save(output, {
         quality: 100
     })
     res && res.redirect("/output.jpg");

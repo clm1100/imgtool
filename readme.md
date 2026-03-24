@@ -275,6 +275,87 @@ module.exports = dealTemplate;
 - [ ] 添加 API 文档（Swagger）
 - [ ] 实现上传自定义背景功能
 
-## 📄 许可证
+## � 故障排除
+
+### Q: npm install总是卡住怎么办？
+
+**问题原因**：
+- 旧的package-lock.json导致npm需要重新获取元数据
+- Sharp库的二进制依赖下载较慢
+- 网络超时设置太短
+
+**快速修复**（按顺序尝试）：
+
+#### 方案1：使用优化参数
+```bash
+npm install --no-audit --no-fund --legacy-peer-deps --network-timeout=120000
+```
+
+#### 方案2：删除lockfile重新安装
+```bash
+del package-lock.json
+npm install --force --no-optional --no-audit --no-fund
+```
+
+#### 方案3：运行修复脚本（Windows）
+```bash
+.\fix-npm.bat
+```
+
+或手动执行：
+```bash
+npm cache clean --force
+npm config set registry https://registry.npmmirror.com
+npm config set sharp_binary_host_mirror https://npmmirror.com
+npm install --force --prefer-offline --no-audit --no-fund
+```
+
+#### 方案4：使用yarn替代npm
+```bash
+yarn install
+```
+
+### Q: 为什么会出现"deprecated"警告？
+
+这些是已停止维护的包（npmlog、are-we-there-yet、gauge）。它们是`sharp`和其他依赖的二级依赖。**不需要处理**，不会影响运行。
+
+### Q: npm install很慢怎么办？
+
+**使用国内镜像**：
+```bash
+npm config set registry https://registry.npmmirror.com
+npm config set sharp_binary_host_mirror https://npmmirror.com
+```
+
+创建 `.npmrc` 文件（项目根目录），添加：
+```
+registry=https://registry.npmmirror.com
+sharp_binary_host_mirror=https://npmmirror.com
+fetch-timeout=120000
+```
+
+### Q: Sharp库编译失败怎么办？
+
+Sharp需要C++编译环境。解决方案：
+
+**Windows**：
+```bash
+npm install --global windows-build-tools
+npm install sharp@0.32.0
+```
+
+**Mac**：
+```bash
+xcode-select --install
+npm install sharp@0.32.0
+```
+
+**Linux**：
+```bash
+sudo apt-get install build-essential python3
+npm install sharp@0.32.0
+```
+
+## �📄 许可证
 
 ISC
