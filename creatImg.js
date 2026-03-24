@@ -5,7 +5,6 @@ const pureimage = require("pureimage");
 const Jimp = require("jimp");
 
 async function createImg({ name, outputname, fontSize = 36, fontPath = "font/msyh.ttf" }) {
-    console.log('[createImg] Input:', { name, outputname, fontSize });
 
     const textToSVG = TextToSVG.loadSync(path.join(__dirname, fontPath));
 
@@ -14,7 +13,6 @@ async function createImg({ name, outputname, fontSize = 36, fontPath = "font/msy
     const actualFontSize = fontSize * scale;
 
     const metrics = textToSVG.getMetrics(name, { fontSize: actualFontSize });
-    console.log('[createImg] Metrics:', metrics);
 
     const padding = 10 * scale;
     const width = Math.ceil(metrics.width + padding * 2) || 100;
@@ -121,7 +119,6 @@ async function createImg({ name, outputname, fontSize = 36, fontPath = "font/msy
     // 删除临时文件
     fs.unlinkSync(tempPath);
 
-    console.log(`[createImg] Created: ${outputPath} (fontSize: ${fontSize})`);
 }
 
 module.exports = createImg;
