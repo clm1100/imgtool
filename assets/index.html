@@ -1,0 +1,211 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>标签、合格证生成器</title>
+
+    <link type="text/css" href="css/style.css" rel="stylesheet" />
+    <style>
+        .radio-check {
+            color: white;
+            position: relative;
+            height: 35px;
+        }
+    
+        .radio-check>input {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            opacity: 0;
+        }
+    
+        .radio-check>label {
+            position: absolute;
+            left: 30px;
+            line-height: 20px;
+            top: 0px;
+        }
+    
+        .radio-check>label:before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 0px;
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+            transition: all 0.3s ease;
+            -webkit-transition: all 0.3s ease;
+            -moz-transition: all 0.3s ease;
+        }
+    
+        .radio-check>label:after {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 0px;
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-top: 6px;
+            margin-left: 6px;
+            transition: all 0.3s ease;
+            -webkit-transition: all 0.3s ease;
+            -moz-transition: all 0.3s ease;
+        }
+    
+        .radio-check input[type='radio']:checked+label:before {
+            border-color: #4cd764;
+        }
+    
+        .radio-check input[type='radio']:checked+label:after {
+            background: #4cd764;
+        }
+        .image{
+            width:500px;
+            border: 1px solid #888888;
+            box-shadow: 10px 10px 5px #888888;
+        }
+        img{
+            display:block;
+            width: 100%;
+        }
+        /* .form{
+            column-count:2;
+	        column-gap:0px;
+        } */
+    </style>
+</head>
+
+<body>
+    <div class="image">
+        <img class="img" src="./loading.gif" alt="图片信息" title="图片信息">
+    </div>
+    <div class="login">
+        <!-- <h3>合格证信息1</h3> -->
+        <form class="form" action="/water" method="get">
+            <div class='radio-check'>
+                <input type='radio' name='size' id='test1' value="deal30x41"/>
+                <label for='test1' class>华亿标签_30*41尺寸</label>
+            </div>
+            <div class='radio-check'>
+                <input type='radio' name='size' id='test2' value="deal54x33" />
+                <label for='test2' class>华亿标签_54*33尺寸</label>
+            </div>
+            <div class='radio-check'>
+                <input type='radio' name='size' id='test3' value="deal68x42"/>
+                <label for='test3' class>华亿标签_68*42尺寸</label>
+            </div>
+            <div class='radio-check'>
+                <input type='radio' name='size' id='test4' value="deal100x30"/>
+                <label for='test4' class>华亿标签_100*30尺寸</label>
+            </div>
+            <div class='radio-check'>
+                <input type='radio' name='size' id='test5' value="dealhege" checked/>
+                <label for='test5' class>华亿合格证</label>
+            </div>
+            <div class='radio-check'>
+                <input type='radio' name='size' id='test6' value="dealjinling" />
+                <label for='test6' class>金陵合格证</label>
+            </div>
+            <div class='radio-check'>
+                <input type='radio' name='size' id='test7' value="dealjnmhg" />
+                <label for='test7' class>佳耐美合格证</label>
+            </div>
+            <div class='radio-check'>
+                <input type='radio' name='size' id='test8' value="dealjnmbq" />
+                <label for='test8' class>佳耐美标签</label>
+            </div>
+            <div class='radio-check'>
+                <input type='radio' name='size' id='test9' value="deal54_33_jinling" />
+                <label for='test9' class>金陵标签_68*42尺寸</label>
+            </div>
+            <div class='radio-check'>
+                <input type='radio' name='size' id='test10' value="tongyong" />
+                <label for='test10' class>通用合格证</label>
+            </div>
+            <div class='radio-check'>
+                <input type='radio' name='size' id='test11' value="newTag" />
+                <label for='test11' class>已分割版标签</label>
+            </div>
+            <input type="text" name="productname" placeholder="产品名称" required="required" />
+            <input type="text" name="producttype" placeholder="产品型号" required="required" />
+            <input type="text" name="productpeople" placeholder="检验人员" required="required" value="001"/>
+            <input type="text" name="productdate" placeholder="出厂日期" required="required"  value="2020-12-12"/>
+            <button type="submit" class="btn btn-primary btn-block btn-large">生成</button>
+        </form>
+    </div>
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script>
+   $(function () {
+       let images = [
+           './bg/30x41.png',
+           './bg/54x33.png',
+           './bg/68x42.png',
+           './bg/100x30.png',
+           './bg/华亿合格证1.png',
+           './bg/金陵体育.jpg',
+           './bg/jianaimeihegezheng.png',
+           './bg/jianaimeibiaoqian.png',
+           './bg/54_33_jingling_small.png',
+           './bg/tongyong.png',
+           './bg/newTag.png',
+
+
+       ]
+
+
+       function loadImage(src) {
+           let p = new Promise(function (resolve, reject) {
+               let img = new Image();
+               img.onload = function () {//加载时执行resolve函数
+                   resolve(img);
+               }
+               img.onerror = function () {
+                   reject(src);
+               }
+               img.src = src;
+           })
+           return p;
+       }
+       async function fn() {
+           let arr = [];
+           for (let i = 0; i < images.length; i++) {
+               await loadImage(images[i]).then(img => {
+                   arr.push(img);
+               });
+           }
+           return arr;
+       }
+       fn().then(list => {
+        //    console.log(list);//打印图片数组
+
+        var index = $(".radio-check input").index($(".radio-check input:checked"));
+        //    $('.img').prop('src', images[index])
+           $(".image").html(list[index]);
+           $(".radio-check input").on('change', function (e) {
+               var index = $(".radio-check input").index(this);
+            //    $('.img').prop('src', images[index])
+            $(".image").html(list[index]);
+           })
+
+
+       })
+
+
+
+
+       
+       
+   })
+
+</script>
+</body>
+
+</html>
